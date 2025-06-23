@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -7,6 +8,10 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
@@ -14,11 +19,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-white">
-                <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                  🚀 NASA Explorer
-                </span>
-              </h1>
+              <Link to="/">
+                <h1 className="text-2xl font-bold text-white hover:scale-105 transition-transform cursor-pointer">
+                  <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                    🚀 NASA Explorer
+                  </span>
+                </h1>
+              </Link>
               <Badge variant="secondary" className="hidden sm:inline-flex">
                 Powered by NASA API
               </Badge>
@@ -26,32 +33,36 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             <nav className="flex items-center space-x-2">
               <Button
-                variant="ghost"
+                variant={isActive("/") ? "default" : "ghost"}
                 size="sm"
                 className="text-slate-300 hover:text-white"
+                asChild
               >
-                Home
+                <Link to="/">Home</Link>
               </Button>
               <Button
-                variant="ghost"
+                variant={isActive("/galeria") ? "default" : "ghost"}
                 size="sm"
                 className="text-slate-300 hover:text-white"
+                asChild
               >
-                Galeria
+                <Link to="/galeria">Galeria</Link>
               </Button>
               <Button
-                variant="ghost"
+                variant={isActive("/marte") ? "default" : "ghost"}
                 size="sm"
                 className="text-slate-300 hover:text-white"
+                asChild
               >
-                Marte
+                <Link to="/marte">Marte</Link>
               </Button>
               <Button
-                variant="ghost"
+                variant={isActive("/asteroides") ? "default" : "ghost"}
                 size="sm"
                 className="text-slate-300 hover:text-white"
+                asChild
               >
-                Asteroides
+                <Link to="/asteroides">Asteroides</Link>
               </Button>
             </nav>
           </div>

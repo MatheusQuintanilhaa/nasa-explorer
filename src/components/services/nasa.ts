@@ -103,7 +103,12 @@ export const nasaService = {
     camera?: string,
     page: number = 1
   ): Promise<{ photos: MarsRoverPhoto[] }> {
-    const params: any = { page };
+    const params: {
+      page: number;
+      sol?: number;
+      earth_date?: string;
+      camera?: string;
+    } = { page };
 
     if (sol) params.sol = sol;
     if (earthDate) params.earth_date = earthDate;
